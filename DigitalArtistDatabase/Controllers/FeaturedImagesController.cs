@@ -41,5 +41,5 @@ namespace DigitalArtistDatabase.Controllers
     /* REFERENCE: Maybe this page will help with image saving/loading
      * 
      * http://stackoverflow.com/questions/26347705/saving-images-to-database-with-asp-net-mvc-4-entity-framework
-     * /
+     */
 }
