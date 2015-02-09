@@ -8,6 +8,7 @@ using DigitalArtistDatabase.Models;
 namespace DigitalArtistDatabase.DAL
 {
     public class DADInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<DADContext>
+                                  //System.Data.Entity.DropCreateDatabaseAlways<DADContext>
     {
         protected override void Seed(DADContext context)
         {

@@ -1,0 +1,34 @@
+﻿@model DigitalArtistDatabase.Models.ArtistViewModel
+
+@{
+    ViewBag.Title = "Artist";
+}
+
+<h2>Artist Profile</h2><br/>
+@Html.DisplayFor(m => Model.ArtistName)
+
+@foreach (var p in Model.Posts)
+{
+    <br /><br /><br /><br />
+
+    @Html.DisplayFor(item => p.Title) <span>            </span>
+    @Html.DisplayFor(item => p.DatePosted)<span>     </span>
+    @Html.DisplayFor(item => p.ViewCount)
+    <br />
+    @Html.DisplayFor(item => p.Description)
+    <br /><br />
+
+    foreach(var i in p.Pictures)
+    {
+        @Html.DisplayFor(item => i.Image) <span>    </span>
+    }
+
+    <br /><br /><span>Comments</span><br /><br />
+        
+    foreach (var c in p.Comments)
+    {
+        @Html.DisplayFor(item => c.Text)<span>  </span>
+        @Html.DisplayFor(item => c.DatePosted)
+        <br /><br />
+    }
+}
