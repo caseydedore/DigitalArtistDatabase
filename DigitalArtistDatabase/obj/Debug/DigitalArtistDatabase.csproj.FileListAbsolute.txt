@@ -57,3 +57,4 @@ D:\LCC_Classes\ASP.NET-MVC\DigitalArtistDatabase\DigitalArtistDatabase\DigitalAr
 D:\LCC_Classes\ASP.NET-MVC\DigitalArtistDatabase\DigitalArtistDatabase\DigitalArtistDatabase\bin\Antlr3.Runtime.pdb
 D:\LCC_Classes\ASP.NET-MVC\DigitalArtistDatabase\DigitalArtistDatabase\DigitalArtistDatabase\bin\Newtonsoft.Json.xml
 D:\LCC_Classes\ASP.NET-MVC\DigitalArtistDatabase\DigitalArtistDatabase\DigitalArtistDatabase\obj\Debug\DigitalArtistDatabase.pdb
+D:\LCC_Classes\ASP.NET-MVC\DigitalArtistDatabase\DigitalArtistDatabase\DigitalArtistDatabase\obj\Debug\DigitalArtistDatabase.csprojResolveAssemblyReference.cache

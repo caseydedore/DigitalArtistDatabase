@@ -13,25 +13,29 @@ namespace DigitalArtistDatabase.Controllers
     {
         private DADContext db = new DADContext();
 
-        // GET: FeaturedImages
-        public ActionResult Index(int? num)
+        // GET: FeaturedImages/<num?>
+        public ActionResult Index(int? id)
         {
-            if (num == null) num = 10;
-            return (IndexLimited((int)num));
+            if (id == null) id = 10;
+            return (IndexLimited((int)id));
         }
 
         private ViewResult IndexLimited(int num)
         {
             var posts = (from p in db.Posts
                          orderby p.DatePosted
-                         select p).Include("Pictures").Take(num);
+                         select p).Take(num).Include("Pictures");
 
             var pfvms = new List<PictureFeaturedViewModel>();
 
+
             foreach (var p in posts)
             {
-                foreach(var i in p.Pictures) pfvms.Add(new PictureFeaturedViewModel { Image = i.Image, DatePosted = p.DatePosted, ViewCount = p.ViewCount});
+                //this line was for ALL images in a post
+                //foreach(var i in p.Pictures) pfvms.Add(new PictureFeaturedViewModel { Image = i.Image, DatePosted = p.DatePosted, ViewCount = p.ViewCount});
+                if (p.Pictures.Count > 0) pfvms.Add(new PictureFeaturedViewModel { Image = p.Pictures.ElementAt(0).Image, DatePosted = p.DatePosted, ViewCount = p.ViewCount });
             }
+
 
             ViewBag.Title = "Featured Images";
             return View(pfvms);
