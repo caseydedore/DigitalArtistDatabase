@@ -45,7 +45,7 @@ namespace DigitalArtistDatabase.Controllers
                 //NOTE: The reason why this works is because of the Include() at the end of the linq select for posts.
                 foreach (var i in p.Pictures)
                 {
-                    pvm.Pictures.Add(new PictureViewModel { Image = i.Image });
+                    pvm.Pictures.Add(new PictureViewModel { ImageURL = i.ImageURL });
                 }
 
                 foreach (var c in p.Comments)

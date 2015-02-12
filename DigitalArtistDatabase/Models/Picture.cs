@@ -8,7 +8,7 @@ namespace DigitalArtistDatabase.Models
     public class Picture
     {
         public int ID { get; set; }
-        public byte[] Image { get; set; }
+        public string ImageURL { get; set; }
 
         public int PostID { get; set; }
 

@@ -40,11 +40,11 @@ namespace DigitalArtistDatabase.DAL
             };
             List<Picture> pictures = new List<Picture>
             {
-                new Picture{Image = new byte[]{0x20,0x20,0x20,0x20,0x20,0x20,0x20}, PostID=1},
-                new Picture{Image = new byte[]{0x20,0x20,0x20,0x20,0x20,0x20,0x20}, PostID=2},
-                new Picture{Image = new byte[]{0x20,0x20,0x20,0x20,0x20,0x20,0x20}, PostID=2},
-                new Picture{Image = new byte[]{0x20,0x20,0x20,0x20,0x20,0x20,0x20}, PostID=2},
-                new Picture{Image = new byte[]{0x20,0x20,0x20,0x20,0x20,0x20,0x20}, PostID=3}
+                new Picture{ImageURL = "~/Uploads/OUTPUT_SteveHeadShot.png", PostID=1},
+                new Picture{ImageURL = "~/Uploads/OUTPUT_SteveHeadShot.png", PostID=2},
+                new Picture{ImageURL = "~/Uploads/OUTPUT_SteveHeadShot.png", PostID=2},
+                new Picture{ImageURL = "~/Uploads/OUTPUT_SteveHeadShot.png", PostID=2},
+                new Picture{ImageURL = "~/Uploads/OUTPUT_SteveHeadShot.png", PostID=3}
             };
 
             thumbnails.ForEach(s => context.Thumbnails.Add(s));

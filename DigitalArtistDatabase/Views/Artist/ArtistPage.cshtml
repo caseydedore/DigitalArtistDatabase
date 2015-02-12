@@ -1,4 +1,5 @@
 ﻿@model DigitalArtistDatabase.Models.ArtistViewModel
+@using System.Drawing
 
 @{
     ViewBag.Title = "Artist";
@@ -18,9 +19,11 @@
     @Html.DisplayFor(item => p.Description)
     <br /><br />
 
-    foreach(var i in p.Pictures)
+    foreach (var i in p.Pictures)
     {
-        @Html.DisplayFor(item => i.Image) <span>    </span>
+       //@Html.DisplayFor(item => i.ImageURL)
+       <img src="@Url.Content(i.ImageURL)" /><br/>
+
     }
 
     <br /><br /><span>Comments</span><br /><br />

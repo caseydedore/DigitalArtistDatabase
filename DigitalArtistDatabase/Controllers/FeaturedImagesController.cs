@@ -33,7 +33,7 @@ namespace DigitalArtistDatabase.Controllers
             {
                 //this line was for ALL images in a post
                 //foreach(var i in p.Pictures) pfvms.Add(new PictureFeaturedViewModel { Image = i.Image, DatePosted = p.DatePosted, ViewCount = p.ViewCount});
-                if (p.Pictures.Count > 0) pfvms.Add(new PictureFeaturedViewModel { Image = p.Pictures.ElementAt(0).Image, DatePosted = p.DatePosted, ViewCount = p.ViewCount });
+                if (p.Pictures.Count > 0) pfvms.Add(new PictureFeaturedViewModel { ImageURL = p.Pictures.ElementAt(0).ImageURL, DatePosted = p.DatePosted, ViewCount = p.ViewCount });
             }
 
 
