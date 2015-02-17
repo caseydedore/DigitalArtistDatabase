@@ -1,4 +1,4 @@
-﻿@model DigitalArtistDatabase.Models.ArtistViewModel
+﻿@model DigitalArtistDatabase.Models.Artist
 @using System.Drawing
 
 @{
@@ -6,32 +6,35 @@
 }
 
 <h2>Artist Profile</h2><br/>
-@Html.DisplayFor(m => Model.ArtistName)
+@Html.DisplayFor(m => Model.UserName)
 
-@foreach (var p in Model.Posts)
+@*Oddly, this is needed. Find out why the foreach loop doesn't save the program from null references*@
+@if(Model.Posts != null)
 {
-    <br /><br /><br /><br />
-
-    @Html.DisplayFor(item => p.Title) <span>            </span>
-    @Html.DisplayFor(item => p.DatePosted)<span>     </span>
-    @Html.DisplayFor(item => p.ViewCount)
-    <br />
-    @Html.DisplayFor(item => p.Description)
-    <br /><br />
-
-    foreach (var i in p.Pictures)
+    foreach (var p in Model.Posts)
     {
-       //@Html.DisplayFor(item => i.ImageURL)
-       <img src="@Url.Content(i.ImageURL)" /><br/>
+        <br /><br /><br /><br />
 
-    }
-
-    <br /><br /><span>Comments</span><br /><br />
-        
-    foreach (var c in p.Comments)
-    {
-        @Html.DisplayFor(item => c.Text)<span>  </span>
-        @Html.DisplayFor(item => c.DatePosted)
+        @Html.DisplayFor(item => p.Title) <span>            </span>
+        @Html.DisplayFor(item => p.DatePosted)<span>     </span>
+        @Html.DisplayFor(item => p.ViewCount)
+        <br />
+        @Html.DisplayFor(item => p.Description)
         <br /><br />
+
+        foreach (var i in p.Pictures)
+        {
+           //@Html.DisplayFor(item => i.ImageURL)
+           <img src="@Url.Content(i.ImageURL)" /><br />
+        }
+
+        <br /><br /><span>Comments</span><br /><br />
+        
+        foreach (var c in p.Comments)
+        {
+            @Html.DisplayFor(item => c.Text)<span>  </span>
+            @Html.DisplayFor(item => c.DatePosted)
+            <br /><br />
+        }
     }
 }

@@ -5,6 +5,24 @@ using System.Web;
 
 namespace DigitalArtistDatabase.Models
 {
+    public class PictureFeaturedViewModel
+    {
+        public string ImageURL { get; set; }
+        //info from the post that is it's parent
+        public DateTime DatePosted { get; set; }
+        public uint ViewCount { get; set; }
+    }
+
+    public class PostCreateViewModel
+    {
+        public int ArtistID { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        
+        public ICollection<Picture> Pictures{get; set;}
+    }
+
+    /*
     public class ArtistViewModel
     {
         public ArtistViewModel()
@@ -48,12 +66,5 @@ namespace DigitalArtistDatabase.Models
     {
         public string ImageURL { get; set; }
     }
-
-    public class PictureFeaturedViewModel
-    {
-        public string ImageURL { get; set; }
-        //info from the post that is it's parent
-        public DateTime DatePosted { get; set; }
-        public uint ViewCount { get; set; }
-    }
+    */
 }

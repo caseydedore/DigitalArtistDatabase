@@ -198,6 +198,7 @@
     <Content Include="Views\Picture\Index.cshtml" />
     <Content Include="Views\Artist\ArtistPage.cshtml" />
     <Content Include="Views\FeaturedImages\Index.cshtml" />
+    <Content Include="Views\Artist\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

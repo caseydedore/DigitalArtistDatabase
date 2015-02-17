@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using DigitalArtistDatabase.DAL;
 using DigitalArtistDatabase.Models;
+using System.IO;
 
 namespace DigitalArtistDatabase.Controllers
 {
@@ -40,6 +41,7 @@ namespace DigitalArtistDatabase.Controllers
         // GET: Post/Create
         public ActionResult Create()
         {
+            //so we can create a dropdown list in the view
             ViewBag.ArtistID = new SelectList(db.Artists, "ID", "UserName");
             return View();
         }
@@ -49,16 +51,65 @@ namespace DigitalArtistDatabase.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Title,Description,DatePosted,ArtistID")] Post post)
+        public ActionResult Create([Bind(Include = "Title,Description,ArtistID,Pictures")] PostCreateViewModel post, IEnumerable<HttpPostedFileBase> files)
         {
+            //this will help us create a dropdown list for artists. IT is temporary, as eventually the artist ID will be the artist that is logged in
+            ViewBag.ArtistID = new SelectList(db.Artists, "ID", "UserName", post.ArtistID);
+
+            //some validation - probably should also happen with js
+            bool isValidPost = post.Description.Length > 0 || post.Title.Length > 0;
+            if (isValidPost)
+            {
+                isValidPost = false;
+                foreach (HttpPostedFileBase f in files)
+                {
+                    if (f != null && f.ContentLength > 0) isValidPost = true;
+                }
+            }
+            if (!isValidPost) return View(post);
+
+            //some validation
+            //if (file == null || file.ContentLength <= 0 || post.Description.Length <= 0 || post.Title.Length <= 0) return View(post);
+
             if (ModelState.IsValid)
             {
-                db.Posts.Add(post);
+                //migrate data from the view model to an actual post object for the database, which can be saved
+                Post p = new Post { ArtistID = post.ArtistID, Title = post.Title, Description = post.Description, DatePosted = DateTime.Now, Pictures = new List<Picture>()};
+
+                foreach (HttpPostedFileBase f in files)
+                {
+                    if (f != null)
+                    {
+                        //save the pic with generated url, add the url to the database compatible object (the filename is extracted outside of this block)
+                        string fileName = f.FileName;
+                        string fileUrl = p.ArtistID + p.ID + fileName;
+                        string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/" + fileUrl;
+                        f.SaveAs(path);
+                        string test = Path.Combine("Uploads", fileUrl);
+                        //the database will need the picture url and post id
+                        //if (p.Pictures == null) p.Pictures = new ICollection<Picture>();
+                        p.Pictures.Add(new Picture { ImageURL = "~/Uploads/" + fileUrl, PostID = p.ID });
+                    }
+
+                    /*
+                    //save the pic with generated url, add the url to the database compatible object (the filename is extracted outside of this block)
+                    string fileName = file.FileName;
+                    string fileUrl = p.ArtistID + p.ID + fileName;
+                    string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/" + fileUrl;
+                    file.SaveAs(path);
+                    string test = Path.Combine("Uploads", fileUrl);
+                    //the database will need the picture url and post id
+                    //if (p.Pictures == null) p.Pictures = new ICollection<Picture>();
+                    p.Pictures.Add(new Picture { ImageURL = "~/Uploads/" + fileUrl, PostID = p.ID });
+                    */
+                }
+
+                db.Posts.Add(p);
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ArtistID = new SelectList(db.Artists, "ID", "UserName", post.ArtistID);
             return View(post);
         }
 
