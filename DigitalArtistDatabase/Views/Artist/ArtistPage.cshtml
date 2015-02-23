@@ -8,7 +8,6 @@
 <h2>Artist Profile</h2><br/>
 @Html.DisplayFor(m => Model.UserName)
 
-@*Oddly, this is needed. Find out why the foreach loop doesn't save the program from null references*@
 @if(Model.Posts != null)
 {
     foreach (var p in Model.Posts)

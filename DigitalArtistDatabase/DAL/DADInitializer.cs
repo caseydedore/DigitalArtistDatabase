@@ -14,8 +14,7 @@ namespace DigitalArtistDatabase.DAL
         {
             List<Thumbnail> thumbnails = new List<Thumbnail>
             {
-                new Thumbnail{Image = new byte[]{0x20,0x20,0x20,0x20,0x20,0x20,0x20}},
-                new Thumbnail{Image = new byte[]{0x20,0x20,0x20,0x20,0x20,0x20,0x20}}
+                new Thumbnail{ImageURL = ""}
             };
 
             List<Artist> artists = new List<Artist>

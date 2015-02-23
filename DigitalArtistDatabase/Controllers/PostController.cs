@@ -76,32 +76,25 @@ namespace DigitalArtistDatabase.Controllers
                 //migrate data from the view model to an actual post object for the database, which can be saved
                 Post p = new Post { ArtistID = post.ArtistID, Title = post.Title, Description = post.Description, DatePosted = DateTime.Now, Pictures = new List<Picture>()};
 
+                int iteration = 0;
                 foreach (HttpPostedFileBase f in files)
                 {
                     if (f != null)
                     {
-                        //save the pic with generated url, add the url to the database compatible object (the filename is extracted outside of this block)
-                        string fileName = f.FileName;
-                        string fileUrl = p.ArtistID + p.ID + fileName;
-                        string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/" + fileUrl;
-                        f.SaveAs(path);
-                        string test = Path.Combine("Uploads", fileUrl);
-                        //the database will need the picture url and post id
-                        //if (p.Pictures == null) p.Pictures = new ICollection<Picture>();
-                        p.Pictures.Add(new Picture { ImageURL = "~/Uploads/" + fileUrl, PostID = p.ID });
-                    }
+                        //TODO: this is not going to work on Azure. Check resources for blob storage walkthrough
+                        //http://azure.microsoft.com/en-us/documentation/articles/storage-dotnet-how-to-use-blobs/
+                        //http://www.codeproject.com/Articles/490178/How-to-Use-Azure-Blob-Storage-with-Azure-Web-Sites
 
-                    /*
-                    //save the pic with generated url, add the url to the database compatible object (the filename is extracted outside of this block)
-                    string fileName = file.FileName;
-                    string fileUrl = p.ArtistID + p.ID + fileName;
-                    string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/" + fileUrl;
-                    file.SaveAs(path);
-                    string test = Path.Combine("Uploads", fileUrl);
-                    //the database will need the picture url and post id
-                    //if (p.Pictures == null) p.Pictures = new ICollection<Picture>();
-                    p.Pictures.Add(new Picture { ImageURL = "~/Uploads/" + fileUrl, PostID = p.ID });
-                    */
+                        //save the pic with generated url, add the url to the database compatible object (the filename is extracted outside of this block)
+                        string timeStamp = DateTime.UtcNow.ToString();
+                        timeStamp = new string(timeStamp.Where(c => char.IsDigit(c)).ToArray());
+                        string fileName = f.FileName;
+                        string fileUrl = p.ArtistID.ToString() + timeStamp + iteration++.ToString() + fileName;
+                        string path = AppDomain.CurrentDomain.BaseDirectory + "Pictures/Uploads/" + fileUrl;
+                        f.SaveAs(path);
+                        //the database will need the picture url and post id
+                        p.Pictures.Add(new Picture { ImageURL = "~/Pictures/Uploads/" + fileUrl, PostID = p.ID });
+                    }
                 }
 
                 db.Posts.Add(p);

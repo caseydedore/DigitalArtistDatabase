@@ -9,11 +9,17 @@ namespace DigitalArtistDatabase.Models
     public class Post
     {
         public int ID { get; set; }
+
+        [StringLength(ModelFormatting.POST_TITLE_LENGTH)]
         public string Title { get; set; }
+
+        [StringLength(ModelFormatting.POST_DESCRIPTION_LENGTH)]
         public string Description { get; set; }
+
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MMMM-yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = ModelFormatting.DATE_FORMAT, ApplyFormatInEditMode = true)]
         public DateTime DatePosted { get; set; }
+
         public uint ViewCount { get; set; }
 
         public int ArtistID { get; set; }
