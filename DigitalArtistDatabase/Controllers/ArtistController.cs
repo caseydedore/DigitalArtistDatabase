@@ -23,6 +23,30 @@ namespace DigitalArtistDatabase.Controllers
             return View(artists);
         }
 
+        //get: Artist/Create/
+        public ActionResult Create()
+        {
+            //so we can create a dropdown list in the view
+            ViewBag.ThumbnailID = new SelectList(db.Thumbnails, "ID", "ImageURL");
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        //post: Artist/Create/
+        public ActionResult Create([Bind(Include = "UserName, Description, ThumbnailID")] Artist artist)
+        {
+            if (ModelState.IsValid == false) return View(artist);
+
+            artist.DateJoined = DateTime.Now;
+
+            db.Artists.Add(artist);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
         //get: Artist/ArtistPage/<id?>
         public ActionResult ArtistPage(int? id)
         {

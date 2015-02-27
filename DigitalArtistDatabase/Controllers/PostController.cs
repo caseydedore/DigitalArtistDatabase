@@ -81,10 +81,6 @@ namespace DigitalArtistDatabase.Controllers
                 {
                     if (f != null)
                     {
-                        //TODO: this is not going to work on Azure. Check resources for blob storage walkthrough
-                        //http://azure.microsoft.com/en-us/documentation/articles/storage-dotnet-how-to-use-blobs/
-                        //http://www.codeproject.com/Articles/490178/How-to-Use-Azure-Blob-Storage-with-Azure-Web-Sites
-
                         //save the pic with generated url, add the url to the database compatible object (the filename is extracted outside of this block)
                         string timeStamp = DateTime.UtcNow.ToString();
                         timeStamp = new string(timeStamp.Where(c => char.IsDigit(c)).ToArray());

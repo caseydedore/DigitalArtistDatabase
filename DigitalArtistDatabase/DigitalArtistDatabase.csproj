@@ -162,6 +162,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Artist.cs" />
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\ImageUtility.cs" />
     <Compile Include="Models\ModelFormatting.cs" />
     <Compile Include="Models\Picture.cs" />
     <Compile Include="Models\Post.cs" />
@@ -232,6 +233,7 @@
     <Content Include="Views\Artist\ArtistPage.cshtml" />
     <Content Include="Views\FeaturedImages\Index.cshtml" />
     <Content Include="Views\Artist\Index.cshtml" />
+    <Content Include="Views\Artist\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
