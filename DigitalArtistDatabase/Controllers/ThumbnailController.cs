@@ -47,16 +47,20 @@ namespace DigitalArtistDatabase.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Image")] Thumbnail thumbnail)
+        public ActionResult Create(HttpPostedFileBase file)
         {
-            if (ModelState.IsValid)
+            Thumbnail thumbnail = new Thumbnail();
+            if (ModelState.IsValid && file != null && file.ContentLength > 0)
             {
+                thumbnail.Image = ImageUtility.ImageToByte(file);
+
                 db.Thumbnails.Add(thumbnail);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(thumbnail);
+            //failure! go back to the Create view. There is no information that needs to be sent
+            return View();
         }
 
         // GET: Thumbnail/Edit/5

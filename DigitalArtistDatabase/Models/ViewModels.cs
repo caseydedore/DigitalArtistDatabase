@@ -7,7 +7,7 @@ namespace DigitalArtistDatabase.Models
 {
     public class PictureFeaturedViewModel
     {
-        public string ImageURL { get; set; }
+        public byte[] Image { get; set; }
         //info from the post that is it's parent
         public DateTime DatePosted { get; set; }
         public uint ViewCount { get; set; }

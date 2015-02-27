@@ -159,6 +159,10 @@
     <Compile Include="Migrations\201502222213322_UpdatedModelAttributes.Designer.cs">
       <DependentUpon>201502222213322_UpdatedModelAttributes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201502270306144_ModelImagesChanges.cs" />
+    <Compile Include="Migrations\201502270306144_ModelImagesChanges.Designer.cs">
+      <DependentUpon>201502270306144_ModelImagesChanges.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Artist.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -253,6 +257,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502222213322_UpdatedModelAttributes.resx">
       <DependentUpon>201502222213322_UpdatedModelAttributes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502270306144_ModelImagesChanges.resx">
+      <DependentUpon>201502270306144_ModelImagesChanges.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

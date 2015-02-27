@@ -8,7 +8,7 @@ namespace DigitalArtistDatabase.Models
     public class Thumbnail
     {
         public int ID { get; set; }
-        public string ImageURL { get; set; }
+        public byte[] Image { get; set; }
 
         public ICollection<Artist> artists { get; set; }
     }

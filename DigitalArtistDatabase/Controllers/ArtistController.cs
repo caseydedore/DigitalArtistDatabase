@@ -27,7 +27,7 @@ namespace DigitalArtistDatabase.Controllers
         public ActionResult Create()
         {
             //so we can create a dropdown list in the view
-            ViewBag.ThumbnailID = new SelectList(db.Thumbnails, "ID", "ImageURL");
+            ViewBag.ThumbnailID = new SelectList(db.Thumbnails, "ID", "ID");
 
             return View();
         }

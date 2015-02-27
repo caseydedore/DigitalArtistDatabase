@@ -5,10 +5,10 @@
     ViewBag.Title = "Artist";
 }
 
-<h2>Artist Profile</h2><br/>
+<h2>Artist Profile</h2><br />
 @Html.DisplayFor(m => Model.UserName)
 
-@if(Model.Posts != null)
+@if (Model.Posts != null)
 {
     foreach (var p in Model.Posts)
     {
@@ -23,12 +23,14 @@
 
         foreach (var i in p.Pictures)
         {
-           //@Html.DisplayFor(item => i.ImageURL)
-           <img src="@Url.Content(i.ImageURL)" /><br />
+            //@Html.DisplayFor(item => i.ImageURL)
+            //<img src="@Url.Content(i.Image)" /><br />
+            <img src="data:image;base64,@System.Convert.ToBase64String(i.Image)" />
         }
 
+
         <br /><br /><span>Comments</span><br /><br />
-        
+
         foreach (var c in p.Comments)
         {
             @Html.DisplayFor(item => c.Text)<span>  </span>

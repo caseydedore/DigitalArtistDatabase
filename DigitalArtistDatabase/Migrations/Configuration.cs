@@ -13,13 +13,12 @@ namespace DigitalArtistDatabase.Migrations
         {
             AutomaticMigrationsEnabled = false;
         }
-
         protected override void Seed(DigitalArtistDatabase.DAL.DADContext context)
         {
             //initialize default thumbnails here
             List<Thumbnail> thumbnails = new List<Thumbnail>
             {
-                new Thumbnail{ImageURL = "~/Pictures/Thumbnails/Whale01.png"}
+                new Thumbnail{Image = new byte[0]}
             };
 
             List<Artist> artists = new List<Artist>
@@ -39,7 +38,7 @@ namespace DigitalArtistDatabase.Migrations
             List<Picture> pictures = new List<Picture>
             {
                 //this image url does not follow site conventions
-                new Picture{ID=1, ImageURL="~/Pictures/Uploads/OUTPUT_SteveHeadShot.png", PostID=1}
+                new Picture{ID=1, Image=new byte[0], PostID=1}
             };
 
             thumbnails.ForEach(s => context.Thumbnails.AddOrUpdate(s));

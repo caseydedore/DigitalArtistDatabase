@@ -14,7 +14,7 @@ namespace DigitalArtistDatabase.DAL
         {
             List<Thumbnail> thumbnails = new List<Thumbnail>
             {
-                new Thumbnail{ImageURL = ""}
+                new Thumbnail{Image = new byte[0]}
             };
 
             List<Artist> artists = new List<Artist>
@@ -39,11 +39,11 @@ namespace DigitalArtistDatabase.DAL
             };
             List<Picture> pictures = new List<Picture>
             {
-                new Picture{ImageURL = "~/Uploads/OUTPUT_SteveHeadShot.png", PostID=1},
-                new Picture{ImageURL = "~/Uploads/OUTPUT_SteveHeadShot.png", PostID=2},
-                new Picture{ImageURL = "~/Uploads/OUTPUT_SteveHeadShot.png", PostID=2},
-                new Picture{ImageURL = "~/Uploads/OUTPUT_SteveHeadShot.png", PostID=2},
-                new Picture{ImageURL = "~/Uploads/OUTPUT_SteveHeadShot.png", PostID=3}
+                //new Picture{ImageURL = "~/Uploads/OUTPUT_SteveHeadShot.png", PostID=1},
+                //new Picture{ImageURL = "~/Uploads/OUTPUT_SteveHeadShot.png", PostID=2},
+                //new Picture{ImageURL = "~/Uploads/OUTPUT_SteveHeadShot.png", PostID=2},
+                //new Picture{ImageURL = "~/Uploads/OUTPUT_SteveHeadShot.png", PostID=2},
+                //new Picture{ImageURL = "~/Uploads/OUTPUT_SteveHeadShot.png", PostID=3}
             };
 
             thumbnails.ForEach(s => context.Thumbnails.Add(s));
@@ -60,8 +60,6 @@ namespace DigitalArtistDatabase.DAL
 
             comments.ForEach(s => context.Comments.Add(s));
             context.SaveChanges();
-
-
         }
 
     }

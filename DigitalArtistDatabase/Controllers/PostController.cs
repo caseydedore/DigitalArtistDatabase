@@ -76,11 +76,14 @@ namespace DigitalArtistDatabase.Controllers
                 //migrate data from the view model to an actual post object for the database, which can be saved
                 Post p = new Post { ArtistID = post.ArtistID, Title = post.Title, Description = post.Description, DatePosted = DateTime.Now, Pictures = new List<Picture>()};
 
-                int iteration = 0;
                 foreach (HttpPostedFileBase f in files)
                 {
                     if (f != null)
                     {
+                        p.Pictures.Add(new Picture { PostID = p.ID, Image = ImageUtility.ImageToByte(f) });
+
+
+                        /* This is the old way of storing images, where they end up in a folder in the web directory
                         //save the pic with generated url, add the url to the database compatible object (the filename is extracted outside of this block)
                         string timeStamp = DateTime.UtcNow.ToString();
                         timeStamp = new string(timeStamp.Where(c => char.IsDigit(c)).ToArray());
@@ -90,6 +93,7 @@ namespace DigitalArtistDatabase.Controllers
                         f.SaveAs(path);
                         //the database will need the picture url and post id
                         p.Pictures.Add(new Picture { ImageURL = "~/Pictures/Uploads/" + fileUrl, PostID = p.ID });
+                        */
                     }
                 }
 
