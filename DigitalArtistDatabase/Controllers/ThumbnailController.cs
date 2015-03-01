@@ -13,12 +13,23 @@ namespace DigitalArtistDatabase.Controllers
 {
     public class ThumbnailController : Controller
     {
-        private DADContext db = new DADContext();
+        //private DADContext db = new DADContext();
+        private IThumbnailRepository repository;
+
+        public ThumbnailController()
+        {
+            repository = new ThumbnailRepository(new DADContext());
+        }
+
+        public ThumbnailController(IThumbnailRepository t)
+        {
+            repository = t;
+        }
 
         // GET: Thumbnail
         public ActionResult Index()
         {
-            return View(db.Thumbnails.ToList());
+            return View(repository.GetThumbnails());
         }
 
         // GET: Thumbnail/Details/5
@@ -28,7 +39,7 @@ namespace DigitalArtistDatabase.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Thumbnail thumbnail = db.Thumbnails.Find(id);
+            Thumbnail thumbnail = repository.GetThumbnail((int)id);
             if (thumbnail == null)
             {
                 return HttpNotFound();
@@ -54,8 +65,8 @@ namespace DigitalArtistDatabase.Controllers
             {
                 thumbnail.Image = ImageUtility.ImageToByte(file);
 
-                db.Thumbnails.Add(thumbnail);
-                db.SaveChanges();
+                repository.AddThumbnail(thumbnail);
+                repository.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -70,7 +81,7 @@ namespace DigitalArtistDatabase.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Thumbnail thumbnail = db.Thumbnails.Find(id);
+            Thumbnail thumbnail = repository.GetThumbnail((int)id);
             if (thumbnail == null)
             {
                 return HttpNotFound();
@@ -87,8 +98,8 @@ namespace DigitalArtistDatabase.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(thumbnail).State = EntityState.Modified;
-                db.SaveChanges();
+                repository.UpdateThumbnail(thumbnail);
+                repository.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(thumbnail);
@@ -101,7 +112,7 @@ namespace DigitalArtistDatabase.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Thumbnail thumbnail = db.Thumbnails.Find(id);
+            Thumbnail thumbnail = repository.GetThumbnail((int)id);
             if (thumbnail == null)
             {
                 return HttpNotFound();
@@ -114,9 +125,9 @@ namespace DigitalArtistDatabase.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Thumbnail thumbnail = db.Thumbnails.Find(id);
-            db.Thumbnails.Remove(thumbnail);
-            db.SaveChanges();
+            Thumbnail thumbnail = repository.GetThumbnail(id);
+            repository.DeleteThumbnail(id);
+            repository.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -124,7 +135,7 @@ namespace DigitalArtistDatabase.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                repository.Dispose();
             }
             base.Dispose(disposing);
         }

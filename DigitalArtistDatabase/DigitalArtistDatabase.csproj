@@ -148,6 +148,8 @@
     <Compile Include="Controllers\ThumbnailController.cs" />
     <Compile Include="DAL\DADContext.cs" />
     <Compile Include="DAL\DADInitializer.cs" />
+    <Compile Include="DAL\IThumbnailRepository.cs" />
+    <Compile Include="DAL\ThumbnailRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
