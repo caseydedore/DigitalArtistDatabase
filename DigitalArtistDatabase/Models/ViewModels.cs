@@ -27,13 +27,18 @@ namespace DigitalArtistDatabase.Models
     {
         public ArtistViewModel()
         {
-            Posts = new List<PostViewModel>();
+            Posts = new List<Post>();
         }
 
-        public string ArtistName { get; set; }
+        public string UserName { get; set; }
+        public string Description { get; set; }
+        public byte Reputation { get; set; }
+        public DateTime DateJoined { get; set; }
 
         //Used to store posts belonging to the artist
-        public List<PostViewModel> Posts { get; set; }
+        public ICollection<Post> Posts { get; set; }
+        //the thumbnail that the artist links to. This is the entire reason for this view model
+        public byte[] Thumbnail { get; set; }
     }
 
     public class PostViewModel

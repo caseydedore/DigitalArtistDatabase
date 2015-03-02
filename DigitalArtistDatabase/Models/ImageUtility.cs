@@ -9,7 +9,7 @@ namespace DigitalArtistDatabase.Models
 {
     public static class ImageUtility
     {
-        public static byte[] ImageToByte(HttpPostedFileBase i)
+        public static byte[] ImagePostToByte(HttpPostedFileBase i)
         {
             byte[] b = new byte[i.ContentLength];
 

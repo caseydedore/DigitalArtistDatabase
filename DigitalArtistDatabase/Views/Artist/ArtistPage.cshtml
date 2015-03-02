@@ -1,12 +1,11 @@
 ﻿@model DigitalArtistDatabase.Models.Artist
-@using System.Drawing
 
 @{
     ViewBag.Title = "Artist";
 }
 
-<h2>Artist Profile</h2><br />
-@Html.DisplayFor(m => Model.UserName)
+<h2>@String.Format("{0}'s Profile", Model.UserName)</h2><br />
+<img src="data:image;base64,@System.Convert.ToBase64String(Model.Thumbnail.Image)" />
 
 @if (Model.Posts != null)
 {
@@ -23,8 +22,6 @@
 
         foreach (var i in p.Pictures)
         {
-            //@Html.DisplayFor(item => i.ImageURL)
-            //<img src="@Url.Content(i.Image)" /><br />
             <img src="data:image;base64,@System.Convert.ToBase64String(i.Image)" />
         }
 
@@ -33,9 +30,24 @@
 
         foreach (var c in p.Comments)
         {
-            @Html.DisplayFor(item => c.Text)<span>  </span>
-            @Html.DisplayFor(item => c.DatePosted)
+            @Html.DisplayFor(item => c.DatePosted)<span>  </span>
+            @Html.DisplayFor(item => c.Artist.UserName)<span>               </span>
+            @Html.DisplayFor(item => c.Text)
             <br /><br />
         }
+
+        /* nah... for now simply have a button set up to create a comment the hard way
+        using (Html.BeginForm("CreateComment", "Post", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <input type="text" name="comment" placeholder="Comment on this post"/>
+            <input type="submit" value="Submit Comment" class="btn btn-default" />
+        }
+        */
+
+        //temporary until a real comment system is added (the above may be a good place to start)
+        <p>
+            @Html.ActionLink("Add Comment", "Create", "Comment")
+        </p>
     }
 }

@@ -18,7 +18,7 @@ namespace DigitalArtistDatabase.Controllers
         public ActionResult Index()
         {
             var artists = (from a in db.Artists
-                           select a);
+                           select a).Include("Thumbnail");
 
             return View(artists);
         }
@@ -52,12 +52,11 @@ namespace DigitalArtistDatabase.Controllers
         {
             //catch if the id value is null
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //get the artist with matching id
-            //Artist artist = db.Artists.Find(id);
 
+            //get the artist; also get the thumbnail that the artist has an FK and nav property for
             var artist = (from a in db.Artists
-                             where a.ID == (int)id
-                             select a).FirstOrDefault();
+                          where a.ID == (int)id
+                          select a).Include("Thumbnail").FirstOrDefault();
             
             if (artist == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 

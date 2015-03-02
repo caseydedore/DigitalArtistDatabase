@@ -63,7 +63,7 @@ namespace DigitalArtistDatabase.Controllers
             Thumbnail thumbnail = new Thumbnail();
             if (ModelState.IsValid && file != null && file.ContentLength > 0)
             {
-                thumbnail.Image = ImageUtility.ImageToByte(file);
+                thumbnail.Image = ImageUtility.ImagePostToByte(file);
 
                 repository.AddThumbnail(thumbnail);
                 repository.SaveChanges();

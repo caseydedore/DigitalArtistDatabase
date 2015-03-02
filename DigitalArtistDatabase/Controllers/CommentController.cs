@@ -50,10 +50,11 @@ namespace DigitalArtistDatabase.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Text,DatePosted,ArtistID,PostID")] Comment comment)
+        public ActionResult Create([Bind(Include = "Text,ArtistID,PostID")] Comment comment)
         {
             if (ModelState.IsValid)
             {
+                comment.DatePosted = DateTime.Now;
                 db.Comments.Add(comment);
                 db.SaveChanges();
                 return RedirectToAction("Index");

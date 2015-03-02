@@ -80,20 +80,7 @@ namespace DigitalArtistDatabase.Controllers
                 {
                     if (f != null)
                     {
-                        p.Pictures.Add(new Picture { PostID = p.ID, Image = ImageUtility.ImageToByte(f) });
-
-
-                        /* This is the old way of storing images, where they end up in a folder in the web directory
-                        //save the pic with generated url, add the url to the database compatible object (the filename is extracted outside of this block)
-                        string timeStamp = DateTime.UtcNow.ToString();
-                        timeStamp = new string(timeStamp.Where(c => char.IsDigit(c)).ToArray());
-                        string fileName = f.FileName;
-                        string fileUrl = p.ArtistID.ToString() + timeStamp + iteration++.ToString() + fileName;
-                        string path = AppDomain.CurrentDomain.BaseDirectory + "Pictures/Uploads/" + fileUrl;
-                        f.SaveAs(path);
-                        //the database will need the picture url and post id
-                        p.Pictures.Add(new Picture { ImageURL = "~/Pictures/Uploads/" + fileUrl, PostID = p.ID });
-                        */
+                        p.Pictures.Add(new Picture { PostID = p.ID, Image = ImageUtility.ImagePostToByte(f) });
                     }
                 }
 
