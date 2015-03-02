@@ -15,6 +15,7 @@ namespace DigitalArtistDatabase.Migrations
         }
         protected override void Seed(DigitalArtistDatabase.DAL.DADContext context)
         {
+            /*
             //initialize default thumbnails here
             List<Thumbnail> thumbnails = new List<Thumbnail>
             {
@@ -55,6 +56,7 @@ namespace DigitalArtistDatabase.Migrations
 
             comments.ForEach(s => context.Comments.AddOrUpdate(s));
             context.SaveChanges();
+            */
         }
     }
 }

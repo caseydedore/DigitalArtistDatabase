@@ -57,7 +57,7 @@ namespace DigitalArtistDatabase.Controllers
             ViewBag.ArtistID = new SelectList(db.Artists, "ID", "UserName", post.ArtistID);
 
             //some validation - probably should also happen with js
-            bool isValidPost = post.Description.Length > 0 || post.Title.Length > 0;
+            bool isValidPost = post.Description != null || post.Title != null;
             if (isValidPost)
             {
                 isValidPost = false;
