@@ -14,12 +14,26 @@ namespace DigitalArtistDatabase.Controllers
 {
     public class PostController : Controller
     {
-        private DADContext db = new DADContext();
+        //now using a unit of work that access the context
+        //private DADContext db = new DADContext();
+        private IUnitOfWork unit;
+
+        public PostController()
+        {
+            unit = new UnitOfWork();
+        }
+
+        public PostController(IUnitOfWork un)
+        {
+            //this is useful for creating a test controller with a fake unit of work
+            unit = un;
+        }
 
         // GET: Post
         public ActionResult Index()
         {
-            var posts = db.Posts.Include(p => p.Artist);
+            var posts = //db.Posts.Include(p => p.Artist);
+                unit.PostRepository.Get();
             return View(posts.ToList());
         }
 
@@ -30,7 +44,8 @@ namespace DigitalArtistDatabase.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post post = db.Posts.Find(id);
+            Post post = //db.Posts.Find(id);
+                unit.PostRepository.GetByID(id);
             if (post == null)
             {
                 return HttpNotFound();
@@ -42,7 +57,8 @@ namespace DigitalArtistDatabase.Controllers
         public ActionResult Create()
         {
             //so we can create a dropdown list in the view
-            ViewBag.ArtistID = new SelectList(db.Artists, "ID", "UserName");
+            ViewBag.ArtistID = //new SelectList(db.Artists, "ID", "UserName");
+                new SelectList(unit.ArtistRepository.Get(), "ID", "UserName");
             return View();
         }
 
@@ -54,7 +70,8 @@ namespace DigitalArtistDatabase.Controllers
         public ActionResult Create([Bind(Include = "Title,Description,ArtistID,Pictures")] PostCreateViewModel post, IEnumerable<HttpPostedFileBase> files)
         {
             //this will help us create a dropdown list for artists. IT is temporary, as eventually the artist ID will be the artist that is logged in
-            ViewBag.ArtistID = new SelectList(db.Artists, "ID", "UserName", post.ArtistID);
+            ViewBag.ArtistID = //new SelectList(db.Artists, "ID", "UserName", post.ArtistID);
+                new SelectList(unit.ArtistRepository.Get(), "ID", "UserName", post.ArtistID);
 
             //some validation - probably should also happen with js
             bool isValidPost = post.Description != null || post.Title != null;
@@ -84,8 +101,10 @@ namespace DigitalArtistDatabase.Controllers
                     }
                 }
 
-                db.Posts.Add(p);
-                db.SaveChanges();
+                //db.Posts.Add(p);
+                //db.SaveChanges();
+                unit.PostRepository.Insert(p);
+                unit.Save();
 
                 return RedirectToAction("Index");
             }
@@ -100,12 +119,14 @@ namespace DigitalArtistDatabase.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post post = db.Posts.Find(id);
+            Post post = //db.Posts.Find(id);
+                unit.PostRepository.GetByID(id);
             if (post == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ArtistID = new SelectList(db.Artists, "ID", "UserName", post.ArtistID);
+            ViewBag.ArtistID = //new SelectList(db.Artists, "ID", "UserName", post.ArtistID);
+                new SelectList(unit.ArtistRepository.Get(), "ID", "UserName", post.ArtistID);
             return View(post);
         }
 
@@ -118,11 +139,14 @@ namespace DigitalArtistDatabase.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(post).State = EntityState.Modified;
-                db.SaveChanges();
+                //db.Entry(post).State = EntityState.Modified;
+                //db.SaveChanges();
+                unit.PostRepository.Update(post);
+                unit.Save();
                 return RedirectToAction("Index");
             }
-            ViewBag.ArtistID = new SelectList(db.Artists, "ID", "UserName", post.ArtistID);
+            ViewBag.ArtistID = //new SelectList(db.Artists, "ID", "UserName", post.ArtistID);
+                new SelectList(unit.ArtistRepository.Get(), "ID", "UserName", post.ArtistID);
             return View(post);
         }
 
@@ -133,7 +157,8 @@ namespace DigitalArtistDatabase.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post post = db.Posts.Find(id);
+            Post post = //db.Posts.Find(id);
+                unit.PostRepository.GetByID(id);
             if (post == null)
             {
                 return HttpNotFound();
@@ -146,9 +171,13 @@ namespace DigitalArtistDatabase.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Post post = db.Posts.Find(id);
-            db.Posts.Remove(post);
-            db.SaveChanges();
+            Post post = //db.Posts.Find(id);
+                unit.PostRepository.GetByID(id);
+            //db.Posts.Remove(post);
+            //db.SaveChanges();
+            unit.PostRepository.Delete(post);
+            unit.Save();
+
             return RedirectToAction("Index");
         }
 
@@ -156,7 +185,8 @@ namespace DigitalArtistDatabase.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                //db.Dispose();
+                unit.Dispose();
             }
             base.Dispose(disposing);
         }

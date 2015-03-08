@@ -12,13 +12,28 @@ namespace DigitalArtistDatabase.Controllers
 {
     public class ArtistController : Controller
     {
-        private DADContext db = new DADContext();
+        //private DADContext db = new DADContext();
+        private IUnitOfWork unit;
+
+        public ArtistController()
+        {
+            unit = new UnitOfWork();
+        }
+
+        public ArtistController(IUnitOfWork un)
+        {
+            unit = un;
+        }
 
         //get: Artist/Index/
         public ActionResult Index()
         {
+            /*
             var artists = (from a in db.Artists
                            select a).Include("Thumbnail");
+             */
+
+            var artists = unit.ArtistRepository.Get(includeProperties: "Thumbnail");
 
             return View(artists);
         }
@@ -27,7 +42,8 @@ namespace DigitalArtistDatabase.Controllers
         public ActionResult Create()
         {
             //so we can create a dropdown list in the view
-            ViewBag.ThumbnailID = new SelectList(db.Thumbnails, "ID", "ID");
+            ViewBag.ThumbnailID = //new SelectList(db.Thumbnails, "ID", "ID");
+                new SelectList(unit.ThumbnailRepository.Get(), "ID", "ID");
 
             return View();
         }
@@ -41,8 +57,10 @@ namespace DigitalArtistDatabase.Controllers
 
             artist.DateJoined = DateTime.Now;
 
-            db.Artists.Add(artist);
-            db.SaveChanges();
+            //db.Artists.Add(artist);
+            //db.SaveChanges();
+            unit.ArtistRepository.Insert(artist);
+            unit.Save();
 
             return RedirectToAction("Index");
         }
@@ -54,24 +72,28 @@ namespace DigitalArtistDatabase.Controllers
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             //get the artist; also get the thumbnail that the artist has an FK and nav property for
+
+            /*
             var artist = (from a in db.Artists
                           where a.ID == (int)id
                           select a).Include("Thumbnail").FirstOrDefault();
+             */
+
+            var artist = unit.ArtistRepository.Get(a => a.ID == (int)id, includeProperties: "Thumbnail, Posts");
             
             if (artist == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
+            Artist art = artist.First();
+
             //get the posts linked to the artist via its id
+            /*
             var posts = (from p in db.Posts
                          orderby p.DatePosted
                          where p.ArtistID == artist.ID
                          select p).Include("Comments").Include("Pictures");
+             */
 
-            foreach (var p in posts)
-            {
-                artist.Posts.Add(p);
-            }
-
-            return View(artist);
+            return View(art);
         }
     }
 }

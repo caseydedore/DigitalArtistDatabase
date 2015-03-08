@@ -6,7 +6,7 @@ using System.Web;
 
 namespace DigitalArtistDatabase.Models
 {
-    public class Comment
+    public class Comment : IEntityModel
     {
         public int ID { get; set; }
 

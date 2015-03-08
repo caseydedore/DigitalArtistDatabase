@@ -183,7 +183,7 @@ D:\LCC Classes\ASP.NET-MVC\DigitalArtistDatabase\DigitalArtistDatabase\DigitalAr
 D:\LCC Classes\ASP.NET-MVC\DigitalArtistDatabase\DigitalArtistDatabase\DigitalArtistDatabase\bin\zh-Hant\System.Spatial.resources.dll
 D:\LCC Classes\ASP.NET-MVC\DigitalArtistDatabase\DigitalArtistDatabase\DigitalArtistDatabase\obj\Debug\DigitalArtistDatabase.Migrations.InitialCreate.resources
 D:\LCC Classes\ASP.NET-MVC\DigitalArtistDatabase\DigitalArtistDatabase\DigitalArtistDatabase\obj\Debug\DigitalArtistDatabase.Migrations.UpdatedModelAttributes.resources
+D:\LCC Classes\ASP.NET-MVC\DigitalArtistDatabase\DigitalArtistDatabase\DigitalArtistDatabase\obj\Debug\DigitalArtistDatabase.Migrations.ModelImagesChanges.resources
 D:\LCC Classes\ASP.NET-MVC\DigitalArtistDatabase\DigitalArtistDatabase\DigitalArtistDatabase\obj\Debug\DigitalArtistDatabase.csproj.GenerateResource.Cache
 D:\LCC Classes\ASP.NET-MVC\DigitalArtistDatabase\DigitalArtistDatabase\DigitalArtistDatabase\obj\Debug\DigitalArtistDatabase.dll
 D:\LCC Classes\ASP.NET-MVC\DigitalArtistDatabase\DigitalArtistDatabase\DigitalArtistDatabase\obj\Debug\DigitalArtistDatabase.pdb
-D:\LCC Classes\ASP.NET-MVC\DigitalArtistDatabase\DigitalArtistDatabase\DigitalArtistDatabase\obj\Debug\DigitalArtistDatabase.Migrations.ModelImagesChanges.resources

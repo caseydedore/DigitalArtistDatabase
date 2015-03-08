@@ -148,8 +148,14 @@
     <Compile Include="Controllers\ThumbnailController.cs" />
     <Compile Include="DAL\DADContext.cs" />
     <Compile Include="DAL\DADInitializer.cs" />
+    <Compile Include="DAL\FakeRepository.cs" />
+    <Compile Include="DAL\FakeUnitOfWork.cs" />
+    <Compile Include="DAL\GenericRepository.cs" />
+    <Compile Include="DAL\IGenericRepository.cs" />
     <Compile Include="DAL\IThumbnailRepository.cs" />
+    <Compile Include="DAL\IUnitOfWork.cs" />
     <Compile Include="DAL\ThumbnailRepository.cs" />
+    <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -168,6 +174,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Artist.cs" />
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\IEntityModel.cs" />
     <Compile Include="Models\ImageUtility.cs" />
     <Compile Include="Models\ModelFormatting.cs" />
     <Compile Include="Models\Picture.cs" />

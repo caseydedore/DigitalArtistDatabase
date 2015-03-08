@@ -5,7 +5,7 @@ using System.Web;
 
 namespace DigitalArtistDatabase.Models
 {
-    public class Thumbnail
+    public class Thumbnail : IEntityModel
     {
         public int ID { get; set; }
         public byte[] Image { get; set; }
