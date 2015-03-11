@@ -42,7 +42,7 @@ namespace DAD.UnitTests
                                                 new Post { ArtistID = 1, Title = "Title", Description = "Description", ViewCount = 10 },
                                                 new Post { ArtistID = 2, Title = "Title", Description = "Description", ViewCount = 100 } };
 
-            var target = new ArtistController(new FakeUnitOfWork(null, artists, posts, null, null));
+            var target = new ArtistController(new FakeUnitOfWork(null, artists, posts));
 
             //act
             target.Delete(artists[0]);

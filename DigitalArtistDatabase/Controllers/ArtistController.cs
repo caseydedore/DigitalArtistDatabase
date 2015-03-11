@@ -97,6 +97,7 @@ namespace DigitalArtistDatabase.Controllers
             }
 
             unit.ArtistRepository.Delete(artist);
+            unit.Save();
 
             return RedirectToAction("Index");
         }
