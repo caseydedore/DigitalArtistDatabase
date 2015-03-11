@@ -247,6 +247,7 @@
     <Content Include="Views\FeaturedImages\Index.cshtml" />
     <Content Include="Views\Artist\Index.cshtml" />
     <Content Include="Views\Artist\Create.cshtml" />
+    <Content Include="Views\Artist\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

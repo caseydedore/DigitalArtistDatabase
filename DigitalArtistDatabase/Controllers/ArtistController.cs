@@ -28,11 +28,6 @@ namespace DigitalArtistDatabase.Controllers
         //get: Artist/Index/
         public ActionResult Index()
         {
-            /*
-            var artists = (from a in db.Artists
-                           select a).Include("Thumbnail");
-             */
-
             var artists = unit.ArtistRepository.Get(includeProperties: "Thumbnail");
 
             return View(artists);
@@ -57,8 +52,6 @@ namespace DigitalArtistDatabase.Controllers
 
             artist.DateJoined = DateTime.Now;
 
-            //db.Artists.Add(artist);
-            //db.SaveChanges();
             unit.ArtistRepository.Insert(artist);
             unit.Save();
 
@@ -73,27 +66,39 @@ namespace DigitalArtistDatabase.Controllers
 
             //get the artist; also get the thumbnail that the artist has an FK and nav property for
 
-            /*
-            var artist = (from a in db.Artists
-                          where a.ID == (int)id
-                          select a).Include("Thumbnail").FirstOrDefault();
-             */
-
             var artist = unit.ArtistRepository.Get(a => a.ID == (int)id, includeProperties: "Thumbnail, Posts");
             
             if (artist == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             Artist art = artist.First();
 
-            //get the posts linked to the artist via its id
-            /*
-            var posts = (from p in db.Posts
-                         orderby p.DatePosted
-                         where p.ArtistID == artist.ID
-                         select p).Include("Comments").Include("Pictures");
-             */
-
             return View(art);
+        }
+
+        //get: Artist/Delete
+        public ActionResult Delete()
+        {
+            ViewBag.ArtistID = new SelectList(unit.ArtistRepository.Get(), "ID", "ID");
+
+            return View();
+        }
+
+        //post: Artist/Delete
+        [HttpPost]
+        public ActionResult Delete(Artist artist)
+        {
+            var posts = unit.PostRepository.Get(p => p.ArtistID == artist.ID);
+
+            //IDEA: If a method of deletion was added into the repositories that allowed a filter (which will use IQueryable and not a collection), 
+            //then we would not need to load posts into memory and use a foreach to delete...
+            foreach (Post p in posts)
+            {
+                unit.PostRepository.Delete(p);
+            }
+
+            unit.ArtistRepository.Delete(artist);
+
+            return RedirectToAction("Index");
         }
     }
 }

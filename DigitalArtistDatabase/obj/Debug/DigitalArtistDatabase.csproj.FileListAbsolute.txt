@@ -187,3 +187,4 @@ D:\LCC Classes\ASP.NET-MVC\DigitalArtistDatabase\DigitalArtistDatabase\DigitalAr
 D:\LCC Classes\ASP.NET-MVC\DigitalArtistDatabase\DigitalArtistDatabase\DigitalArtistDatabase\obj\Debug\DigitalArtistDatabase.csproj.GenerateResource.Cache
 D:\LCC Classes\ASP.NET-MVC\DigitalArtistDatabase\DigitalArtistDatabase\DigitalArtistDatabase\obj\Debug\DigitalArtistDatabase.dll
 D:\LCC Classes\ASP.NET-MVC\DigitalArtistDatabase\DigitalArtistDatabase\DigitalArtistDatabase\obj\Debug\DigitalArtistDatabase.pdb
+D:\LCC Classes\ASP.NET-MVC\DigitalArtistDatabase\DigitalArtistDatabase\DigitalArtistDatabase\obj\Debug\DigitalArtistDatabase.csprojResolveAssemblyReference.cache
