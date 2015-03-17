@@ -143,6 +143,7 @@
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\FeaturedImagesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PictureController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\ThumbnailController.cs" />
@@ -249,12 +250,12 @@
     <Content Include="Views\Artist\Index.cshtml" />
     <Content Include="Views\Artist\Create.cshtml" />
     <Content Include="Views\Artist\Delete.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Pictures\Thumbnails\" />
     <Folder Include="Pictures\Uploads\" />
-    <Folder Include="Views\Login\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

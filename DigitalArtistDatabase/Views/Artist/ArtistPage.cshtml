@@ -4,7 +4,19 @@
     ViewBag.Title = "Artist";
 }
 
-<h2>@String.Format("{0}'s Profile", Model.UserName)</h2><br />
+@{
+    string name = Model.UserName + "'s";
+    var uID = Session["LoggedInUserID"];
+    if (uID != null)
+    {
+        if(Model.ID == (int)uID)
+        {
+            name = "Your";
+        }
+    }
+}
+
+<h2>@String.Format("{0} Profile", name)</h2><br />
 <img src="data:image;base64,@System.Convert.ToBase64String(Model.Thumbnail.Image)" />
 
 @if (Model.Posts != null)
@@ -13,8 +25,8 @@
     {
         <br /><br /><br /><br />
 
-        @Html.DisplayFor(item => p.Title) <span>            </span>
-        @Html.DisplayFor(item => p.DatePosted)<span>     </span>
+        @Html.DisplayFor(item => p.Title)
+        @Html.DisplayFor(item => p.DatePosted)
         @Html.DisplayFor(item => p.ViewCount)
         <br />
         @Html.DisplayFor(item => p.Description)
@@ -29,24 +41,26 @@
 
         foreach (var c in p.Comments)
         {
-            @Html.DisplayFor(item => c.DatePosted)<span>  </span>
-            @Html.DisplayFor(item => c.Artist.UserName)<span>               </span>
+            @Html.DisplayFor(item => c.DatePosted)<br />
+            @Html.DisplayFor(item => c.Artist.UserName)<span> said: </span>
             @Html.DisplayFor(item => c.Text)
             <br /><br />
         }
-
-        /* nah... for now simply have a button set up to create a comment the hard way
-        using (Html.BeginForm("CreateComment", "Post", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        
+        using (Html.BeginForm("CreateComment", "Comment", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
-            <input type="text" name="comment" placeholder="Comment on this post"/>
+            @Html.Hidden("post", p.ID)
+            @Html.Hidden("destinationartist", Model.ID)
+            <input type="text" name="Comment" placeholder="Comment on this post"/>
             <input type="submit" value="Submit Comment" class="btn btn-default" />
         }
-        */
 
+        /*
         //temporary until a real comment system is added (the above may be a good place to start)
         <p>
             @Html.ActionLink("Add Comment", "Create", "Comment")
         </p>
+         * */
     }
 }

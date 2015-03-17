@@ -58,6 +58,14 @@ namespace DigitalArtistDatabase.Controllers
             return RedirectToAction("Index");
         }
 
+        //get: Artist/ArtistPageAutoDirect/
+        public ActionResult ArtistPageAutoDirect()
+        {
+            var i = Session[SessionConstants.loggedUserID];
+
+            return RedirectToAction("ArtistPage", "Artist", new { id = i });
+        }
+
         //get: Artist/ArtistPage/<id?>
         public ActionResult ArtistPage(int? id)
         {
@@ -67,10 +75,15 @@ namespace DigitalArtistDatabase.Controllers
             //get the artist; also get the thumbnail that the artist has an FK and nav property for
 
             var artist = unit.ArtistRepository.Get(a => a.ID == (int)id, includeProperties: "Thumbnail, Posts");
+            //var posts = unit.PostRepository.Get(p => p.ArtistID == (int)id);
+            //var comments = unit.CommentRepository.Get(c => c.ArtistID == (int)id);
             
             if (artist == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-            Artist art = artist.First();
+            //convert from collection to single Artist obj
+            Artist art = artist.FirstOrDefault();
+            //attach the posts and comment directly
+            //art.Posts = posts.ToList();
+            //art.Comments = comments.ToList();
 
             return View(art);
         }

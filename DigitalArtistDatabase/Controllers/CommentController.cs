@@ -37,6 +37,25 @@ namespace DigitalArtistDatabase.Controllers
             return View(comment);
         }
 
+        //POST: Comment/CreateComment/
+        [HttpPost]
+        public ActionResult CreateComment(int? post, int? destinationartist, string comment)
+        {
+            var i = Session[SessionConstants.loggedUserID];
+
+            if (i != null && post != null && ModelState.IsValid == true)
+            {
+                Comment c = new Comment { PostID = (int)post, Text = comment, ArtistID = (int)i, DatePosted = DateTime.Now};
+                //c.Artist = (from Artist a in db.Artists where a.ID == (int)i select a).FirstOrDefault();
+
+                db.Comments.Add(c);
+                db.SaveChanges();
+
+                return RedirectToAction("ArtistPage", "Artist", new {id = destinationartist});
+            }
+            return RedirectToAction("Login", "Login");
+        }
+
         // GET: Comment/Create
         public ActionResult Create()
         {

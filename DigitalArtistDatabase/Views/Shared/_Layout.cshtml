@@ -24,6 +24,16 @@
                     <li>@Html.ActionLink("Posts", "Index", "Post")</li>
                     <li>@Html.ActionLink("Comments", "Index", "Comment")</li>
                     <li>@Html.ActionLink("Thumbnails", "Index", "Thumbnail")</li>
+                    @{
+                        if (Session["LoggedInUserID"] != null)
+                        {
+                            <li>@Html.ActionLink("Your Page", "ArtistPageAutoDirect", "Artist")</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("Login", "Login", "Login")</li>
+                        }
+}
                 </ul>
             </div>
         </div>
